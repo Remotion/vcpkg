@@ -1,11 +1,12 @@
 include(vcpkg_common_functions)
-set(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src/embree-3.0.0)
-vcpkg_download_distfile(ARCHIVE
-    URLS "https://github.com/embree/embree/archive/v3.0.0.zip"
-    FILENAME "embree-3.0.0.zip"
-    SHA512 ca9e033c909458b0ce0d07748c9575eb2600259cffc480a7091f850e5c3eb7f9c4e162d223c570b38e6df9542f47d6cd143f1ccbe21e996d88bf1269f0a1afc6
+
+vcpkg_from_github(
+    OUT_SOURCE_PATH SOURCE_PATH
+    REPO embree/embree
+    REF v3.2.0
+    SHA512 296617251e4a9a95a5ceec10ce8f23daf180a8a61fd78bc5782dca7d5b15bddaa0b6f352e47d657a366ef9176a730ef2edc42451fbad8071c5ce8fbfb4515e51
+    HEAD_REF master
 )
-vcpkg_extract_source_archive(${ARCHIVE})
 
 file(REMOVE ${SOURCE_PATH}/common/cmake/FindTBB.cmake)
 
@@ -42,8 +43,8 @@ file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/include)
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/bin/models)
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/bin/models)
 
-file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/share/embree)
-file(RENAME ${CURRENT_PACKAGES_DIR}/share/doc ${CURRENT_PACKAGES_DIR}/share/embree/doc)
+file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/share/embree3)
+file(RENAME ${CURRENT_PACKAGES_DIR}/share/doc ${CURRENT_PACKAGES_DIR}/share/embree3/doc)
 
 # Handle copyright
 file(COPY ${SOURCE_PATH}/LICENSE.txt DESTINATION ${CURRENT_PACKAGES_DIR}/share/embree3)
